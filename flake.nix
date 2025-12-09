@@ -6,11 +6,18 @@
   };
 
   outputs = { self, nixpkgs } @ inputs: {
-    nixosConfigurations.vbox = nixpkgs.lib.nixosSystem {
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/vbox/configuration.nix
-      ];
+    nixosConfigurations = {
+      vbox = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+	  ./hosts/vbox/configuration.nix
+	  # ./hosts/vbox/hardware-configuration.nix
+        ];
+      };
+      jLaptop = nixpkgs.lib.nixosSystem {};
+      jDesktop = nixpkgs.lib.nixosSystem {};
+      jServer = nixpkgs.lib.nixosSystem {};
+      jRspi = nixpkgs.lib.nixosSystem {};
     };
   };
 }
