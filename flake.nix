@@ -10,14 +10,14 @@
       vbox = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
-	  ./hosts/vbox/configuration.nix
-	  # ./hosts/vbox/hardware-configuration.nix
+	  ./configuration.nix
+	  ./hosts/vbox/hardware-configuration.nix
         ];
       };
-      jLaptop = nixpkgs.lib.nixosSystem {};
-      jDesktop = nixpkgs.lib.nixosSystem {};
-      jServer = nixpkgs.lib.nixosSystem {};
-      jRspi = nixpkgs.lib.nixosSystem {};
+      # jLaptop = nixpkgs.lib.nixosSystem {};
+      # jDesktop = nixpkgs.lib.nixosSystem {};
+      # jServer = nixpkgs.lib.nixosSystem {};
+      # jRspi = nixpkgs.lib.nixosSystem {};
     };
   };
 }
