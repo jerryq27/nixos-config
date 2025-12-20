@@ -44,7 +44,7 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
@@ -56,11 +56,13 @@
   # services.desktopManager.plasma6.enable = true;
 
 
-  # Configure keymap in X11
+  # Configure keymap in X11 (GNOME also uses these values on Wayland)
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+  # For TTY sessions
+  console.keyMap = "us";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -96,6 +98,10 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+  # programs.onlyoffice.enable = true;
+  # programs.ghostty.enable = true;
+  programs.neovim.enable = true;
+  programs.git.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -105,8 +111,9 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    neovim
-    git
+    # neovim
+    # ghostty
+    # git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
