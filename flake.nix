@@ -24,37 +24,37 @@
         ];
       };
 
-      laptop = nixpkgs.lib.nixosSystem {
-        system = defaultSystem;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/default.nix
-        ];
-      };
+      # laptop = nixpkgs.lib.nixosSystem {
+      #   system = defaultSystem;
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     ./hosts/default.nix
+      #   ];
+      # };
 
-      desktop = nixpkgs.lib.nixosSystem {
-        system = defaultSystem;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/default.nix
-        ];
-      };
+      # desktop = nixpkgs.lib.nixosSystem {
+      #   system = defaultSystem;
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     ./hosts/default.nix
+      #   ];
+      # };
       
-      server = nixpkgs.lib.nixosSystem {
-        system = sys;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/default.nix
-        ];
-      };
+      # server = nixpkgs.lib.nixosSystem {
+      #   system = defaultSystem;
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     ./hosts/default.nix
+      #   ];
+      # };
       
-      raspi = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/default.nix
-        ];
-      };
+      # raspi = nixpkgs.lib.nixosSystem {
+      #   system = "aarch64-linux";
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     ./hosts/default.nix
+      #   ];
+      # };
 
     };
   };
