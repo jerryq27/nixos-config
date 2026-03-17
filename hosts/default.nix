@@ -1,8 +1,5 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, defaultUser, ... }:
 
-let
-  defaultUser = "jerry";
-in
 {
   # Common configurations for all hosts.
 
@@ -34,25 +31,42 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
+  # For TTY sessions
+  console.keyMap = "us";
+
+  # Configure keymap in X11 (GNOME also uses these values on Wayland)
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
+  # Install system packages.
   nixpkgs.config.allowUnfree = true;
+  # Install firefox.
+  # programs.firefox.enable = true;
+  # programs.onlyoffice.enable = true;
+  # programs.ghostty.enable = true;
+  # programs.neovim.enable = true;
+  programs.vim.enable = true;
+  programs.git.enable = true;
+
+  # Enable services.
+  services.openssh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.  
-  users.users = {
-    ${defaultUser} = {
-      isNormalUser = true;
-      description = "jerry";
-      extraGroups = [ "networkmanager" "wheel" ];
-    }
+  users.users.${defaultUser} = {
+    isNormalUser = true; # Specifies that this is a real user and not a user like "www-data" that doesn't need a home, users group, etc.
+    description = defaultUser; # Comment field in the /etc/passwd entry
+    extraGroups = [ "networkmanager" "wheel" ];
   };
+  
 
   # Attach home manager and link user with a home definition.
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users = {
-      ${defaultUser} = import ../home/default.nix;
-    };
+    users.${defaultUser} = import ../home/default.nix;
   };
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
