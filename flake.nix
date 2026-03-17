@@ -3,33 +3,59 @@
 
   inputs = {
     nixpkgs = {
-        url = "github:nixos/nixpkgs?ref=nixos-25.11";
+      url = "github:nixos/nixpkgs?ref=nixos-25.11";
     };
     home-manager = {
-        url = "github:nix-community/home-manager/release-25.11";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { self, nixpkgs, home-manager } @ inputs: {
-    nixosConfigurations = {
+
+    nixosConfigurations = let defaultSystem = "x86_64-linux"; in {
       vbox = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        system = defaultSystem;
+        specialArgs = { inherit inputs; }; # Passes "inputs" to all modules
         modules = [
-            ./configuration.nix
-            ./hosts/vbox/hardware-configuration.nix
-            home-manager.nixosModules.home-manager {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.backupFileExtension = "backup";
-                home-manager.users.jerry = import ./home.nix;
-            }
+          ./hosts/default.nix
+          ./hosts/vbox/configuration.nix
+          ./hosts/vbox/hardware-configuration.nix
         ];
       };
-      # jLaptop = nixpkgs.lib.nixosSystem {};
-      # jDesktop = nixpkgs.lib.nixosSystem {};
-      # jServer = nixpkgs.lib.nixosSystem {};
-      # jRspi = nixpkgs.lib.nixosSystem {};
+
+      laptop = nixpkgs.lib.nixosSystem {
+        system = defaultSystem;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/default.nix
+        ];
+      };
+
+      desktop = nixpkgs.lib.nixosSystem {
+        system = defaultSystem;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/default.nix
+        ];
+      };
+      
+      server = nixpkgs.lib.nixosSystem {
+        system = sys;
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/default.nix
+        ];
+      };
+      
+      raspi = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/default.nix
+        ];
+      };
+
     };
   };
 }
