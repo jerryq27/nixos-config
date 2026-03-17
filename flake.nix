@@ -41,7 +41,7 @@
       };
       
       server = nixpkgs.lib.nixosSystem {
-        system = sys;
+        system = defaultSystem;
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/default.nix
