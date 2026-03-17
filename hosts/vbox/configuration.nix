@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, defaultUser, ... }:
 
 {
   # Bootloader.
@@ -15,19 +15,10 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11 (GNOME also uses these values on Wayland)
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # Enable the KDE Desktop Environment.
   # services.displayManager.sddm.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;
-
-  # For TTY sessions
-  console.keyMap = "us";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -69,26 +60,14 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   
-  users.users.jerry.extraGroups = ["vboxsf"];
+  users.users.${defaultUser}.extraGroups = ["vboxsf"];
   
-  # Install firefox.
-  programs.firefox.enable = true;
-  # programs.onlyoffice.enable = true;
-  # programs.ghostty.enable = true;
-  programs.neovim.enable = true;
-  programs.git.enable = true;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

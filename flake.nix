@@ -12,11 +12,16 @@
   };
 
   outputs = { self, nixpkgs, home-manager } @ inputs: {
-
-    nixosConfigurations = let defaultSystem = "x86_64-linux"; in {
+    nixosConfigurations = let 
+      defaultSystem = "x86_64-linux";
+      defaultUser = "jerry";
+    in {
       vbox = nixpkgs.lib.nixosSystem {
         system = defaultSystem;
-        specialArgs = { inherit inputs; }; # Passes "inputs" to all modules
+        # Passes values to all modules
+        specialArgs = {
+          inherit inputs defaultUser; # Evaluates to specialArgs = { inputs = inputs; defaultUser = defaultUser }
+        };
         modules = [
           ./hosts/default.nix
           ./hosts/vbox/configuration.nix
