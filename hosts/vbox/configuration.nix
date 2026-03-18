@@ -1,7 +1,7 @@
 { config, pkgs, defaultUser, ... }:
 
 {
-  imports = [ ./base.nix ];
+  imports = [ ../base.nix ];
 
   # Bootloader.
   boot.loader.grub.enable = true;

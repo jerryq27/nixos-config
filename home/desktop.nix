@@ -1,4 +1,4 @@
-{ ... }:
+{ config, pkgs, defaultUser, ... }:
 
 {
   imports = [ ./base.nix ];
