@@ -23,7 +23,6 @@
           inherit inputs defaultUser; # Evaluates to specialArgs = { inputs = inputs; defaultUser = defaultUser }
         };
         modules = [
-          ./hosts/default.nix
           ./hosts/vbox/configuration.nix
           ./hosts/vbox/hardware-configuration.nix
         ];
