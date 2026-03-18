@@ -42,7 +42,20 @@
 
   # Install system packages.
   nixpkgs.config.allowUnfree = true;
-  # Install firefox.
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  
+  # Dumb install, just installs a package.
+  # environment.systemPackages = with pkgs; [
+  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  #  wget
+    # neovim
+    # ghostty
+    # git
+  # ];
+
+  # Module install, allows for custom configurations for each program.
   # programs.firefox.enable = true;
   # programs.onlyoffice.enable = true;
   # programs.ghostty.enable = true;
@@ -51,7 +64,7 @@
   programs.git.enable = true;
 
   # Enable services.
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.  
   users.users.${defaultUser} = {
@@ -66,7 +79,6 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    users.${defaultUser} = import ../home/default.nix;
   };
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

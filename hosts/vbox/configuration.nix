@@ -44,13 +44,13 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  # environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
     # neovim
     # ghostty
     # git
-  ];
+  # ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -67,6 +67,7 @@
   # networking.firewall.enable = false;
   
   users.users.${defaultUser}.extraGroups = ["vboxsf"];
+  home-manager.users.${defaultUser} = import ../../home/desktop.nix;
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
