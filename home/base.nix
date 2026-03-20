@@ -1,15 +1,11 @@
-{ config, pkgs, ... }:
+# Home Manager module so arguments are different.
+{ osConfig, defaultUser, ... }:
 
 {
-  home.stateVersion = "25.11";
+  home.stateVersion = osConfig.system.stateVersion;
 
-  # The packages this user wants
-  home.packages = with pkgs; [
-    neovim
-    tmux
-    # htop
-    # fastfetch
-  ];
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
   
   programs.bash = {
     enable = true;
@@ -17,9 +13,8 @@
       ll = "ls -l";
       la = "ls -a";
       lal = "ls -al";
-      vim = "nvim";
       nix-check = "nix flake check";
-      nix-update = "sudo nixos-rebuild switch --flake .#vbox";
+      nix-update = "sudo nixos-rebuild switch --flake .#${osConfig.networking.hostName}";
       nix-clean = "nix-collect-garbage -d";
     };
     bashrcExtra = ''
@@ -30,7 +25,6 @@
     '';
   };
 
-  # Basic configuration for programs
   programs.git = {
     enable = true;
     settings.users = {
@@ -38,7 +32,28 @@
       email = "jerry@nixos.vbox";
     };
   };
-  
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+
+  # More for a server setup
+  # environment.variables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    extraConfig = ''
+      set number
+    '';
+  };
+
+  programs.tmux.enable = true;
+
+  # # The packages this user wants
+  # home.packages = with pkgs; [
+  #   neovim
+  #   tmux
+  #   # htop
+  #   # fastfetch
+  # ];
 }
