@@ -79,6 +79,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
+    extraSpecialArgs = { inherit defaultUser; };
   };
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
