@@ -68,8 +68,8 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   
-  users.users.${defaultUser}.extraGroups = ["vboxsf"];
-  home-manager.users.${defaultUser} = import ../../home/desktop.nix;
+  users.users.${defaultUser}.extraGroups = [ "vboxsf" ];
+  home-manager.users.${defaultUser}.imports = [ ../../home/desktop.nix ];
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
