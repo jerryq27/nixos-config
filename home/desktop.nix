@@ -1,7 +1,13 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [ ./base.nix ];
+
+  home.pointerCursor = {
+    package = pkgs.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+  };
 
   xdg.userDirs = {
     enable = true;
@@ -13,9 +19,14 @@
   
   programs.vscode.enable = true;
   programs.onlyoffice.enable = true;
-  # programs.gimp.enable = true;
-  # programs.godot.enable = true;
   programs.obs-studio.enable = true;
   programs.obsidian.enable = true;
   programs.zed-editor.enable = true;
+
+  # Packages without a Home Manager module
+  home.packages = with pkgs; [
+    gimp
+    godot
+    htop
+  ];
 }
