@@ -11,6 +11,11 @@
     };
   };
 
+  programs.gnome-shell = {
+    enable = true;
+    extensions = [{ package = pkgs.gnomeExtensions.gsconnect; }];
+  };
+
   programs.anki.enable = true;
   programs.vscode.enable = true;
   programs.onlyoffice.enable = true;
@@ -18,6 +23,16 @@
   programs.obsidian.enable = true;
   programs.zed-editor.enable = true;
   programs.spotify-player.enable = true;
+  programs.lutris.enable = true;
+  # programs.thunderbird = {
+  #   enable = true;
+  #   profiles =
+  #     {
+  #       name = config.home.username;
+  #       isDefault = true;
+  #     };
+  # };
+  programs.vesktop.enable = true;
 
   # Packages without a Home Manager module
   home.packages = with pkgs; [
@@ -30,6 +45,9 @@
     inkscape
     postman
     qbittorrent
+    signal-desktop
     steam
+    # sublime4
+    vlc
   ];
 }

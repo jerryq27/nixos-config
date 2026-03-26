@@ -9,6 +9,11 @@
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = hostConfig.hostName;
+  # For the GSConnect/KDEConnect protocol
+  networking.firewall = rec {
+    allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
+    allowedUDPPortRanges = allowedTCPPortRanges;
+  };
   
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
