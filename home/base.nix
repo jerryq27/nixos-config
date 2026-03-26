@@ -1,5 +1,5 @@
 # Home Manager module so arguments are different.
-{ osConfig, defaultUser, ... }:
+{ osConfig, defaults, hostConfig, ... }:
 
 {
   home.stateVersion = osConfig.system.stateVersion;
@@ -14,7 +14,7 @@
       la = "ls -a";
       lal = "ls -al";
       nix-check = "nix flake check";
-      nix-update = "sudo nixos-rebuild switch --flake .#${osConfig.networking.hostName}";
+      nix-update = "sudo nixos-rebuild switch --flake .#${hostConfig.machineName}";
       nix-clean = "nix-collect-garbage -d";
     };
     bashrcExtra = ''

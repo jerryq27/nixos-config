@@ -3,12 +3,6 @@
 {
   imports = [ ./base.nix ];
 
-  home.pointerCursor = {
-    package = pkgs.adwaita-icon-theme;
-    name = "Adwaita";
-    size = 24;
-  };
-
   xdg.userDirs = {
     enable = true;
     createDirectories = true; # This tells HM to actually mkdir the paths

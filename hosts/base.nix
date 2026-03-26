@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, defaultUser, ... }:
+{ config, pkgs, inputs, defaults, hostConfig, ... }:
 
 {
   # Common configurations for all hosts.
@@ -67,9 +67,9 @@
   # services.openssh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.  
-  users.users.${defaultUser} = {
+  users.users.${defaults.user} = {
     isNormalUser = true; # Specifies that this is a real user and not a user like "www-data" that doesn't need a home, users group, etc.
-    description = defaultUser; # Comment field in the /etc/passwd entry
+    description = defaults.user; # Comment field in the /etc/passwd entry
     extraGroups = [ "networkmanager" "wheel" ];
   };
   
@@ -79,7 +79,9 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit defaultUser; };
+    extraSpecialArgs = {
+      inherit defaults hostConfig;
+    };
   };
   
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

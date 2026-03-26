@@ -12,15 +12,21 @@
   };
 
   outputs = { self, nixpkgs, home-manager } @ inputs: {
-    nixosConfigurations = let 
-      defaultSystem = "x86_64-linux";
-      defaultUser = "jerry";
+    nixosConfigurations = let
+      defaults = {
+        system = "x86_64-linux";
+        user = "jerry";
+      };
     in {
       vbox = nixpkgs.lib.nixosSystem {
-        system = defaultSystem;
+        system = defaults.system;
         # Passes values to all modules
         specialArgs = {
-          inherit inputs defaultUser; # Evaluates to specialArgs = { inputs = inputs; defaultUser = defaultUser }
+          inherit inputs defaults; # Evaluates to specialArgs = { inputs = inputs; defaultUser = defaultUser }
+          hostConfig = {
+            machineName = "vbox";
+            hostName = "nixos-vbox";
+          };
         };
         modules = [
           ./hosts/vbox/configuration.nix
@@ -29,7 +35,7 @@
       };
 
       # laptop = nixpkgs.lib.nixosSystem {
-      #   system = defaultSystem;
+      #   system = defaults.system;
       #   specialArgs = { inherit inputs; };
       #   modules = [
       #     ./hosts/default.nix
@@ -37,7 +43,7 @@
       # };
 
       # desktop = nixpkgs.lib.nixosSystem {
-      #   system = defaultSystem;
+      #   system = defaults.system;
       #   specialArgs = { inherit inputs; };
       #   modules = [
       #     ./hosts/default.nix
@@ -45,7 +51,7 @@
       # };
       
       # server = nixpkgs.lib.nixosSystem {
-      #   system = defaultSystem;
+      #   system = defaults.system;
       #   specialArgs = { inherit inputs; };
       #   modules = [
       #     ./hosts/default.nix

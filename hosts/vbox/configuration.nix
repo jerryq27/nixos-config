@@ -1,4 +1,4 @@
-{ config, pkgs, defaultUser, ... }:
+{ config, pkgs, defaults, hostConfig, ... }:
 
 {
   imports = [ ../base.nix ];
@@ -8,7 +8,7 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  networking.hostName = "nixos-vbox"; # Define your hostname.
+  networking.hostName = hostConfig.hostName;
   
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -68,8 +68,8 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   
-  users.users.${defaultUser}.extraGroups = [ "vboxsf" ];
-  home-manager.users.${defaultUser}.imports = [ ../../home/desktop.nix ];
+  users.users.${defaults.user}.extraGroups = [ "vboxsf" ];
+  home-manager.users.${defaults.user}.imports = [ ../../home/desktop.nix ];
   
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
