@@ -2,6 +2,12 @@
 
 Home manager manages its own modules separate from NixOS. So properties and arguments are unique to home manager in ./home.
 
+## Customizations
+
+### GNOME
+
+GNOME and GNOME Extensions uses `dconf` for settings. To see options being set, run `dconf watch /org/gnome/shell/`
+
 ## Resources
 
 [Nixpkgs](https://search.nixos.org/packages)

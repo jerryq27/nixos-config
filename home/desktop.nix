@@ -3,19 +3,7 @@
 {
   imports = [ ./base.nix ];
 
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true; # This tells HM to actually mkdir the paths
-    extraConfig = {
-      XDG_PROJECTS_DIR = "/home/${config.home.username}/Projects";
-    };
-  };
-
-  programs.gnome-shell = {
-    enable = true;
-    extensions = [{ package = pkgs.gnomeExtensions.gsconnect; }];
-  };
-
+  # Install packages.
   programs.anki.enable = true;
   programs.vscode.enable = true;
   programs.onlyoffice.enable = true;
@@ -49,5 +37,32 @@
     steam
     # sublime4
     vlc
+
+    # GNOME extensions
+    gnomeExtensions.gsconnect
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.dash-to-panel
+    gnomeExtensions.emoji-copy
   ];
+
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true; # This tells HM to actually mkdir the paths
+    extraConfig = {
+      XDG_PROJECTS_DIR = "/home/${config.home.username}/Projects";
+    };
+  };
+
+  # Enable GNOME extensions
+  dconf.settings = {
+    "org/gnome/shell" = {
+      disable-user-extensions = false;
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        gsconnect.extensionUuid
+        blur-my-shell.extensionUuid
+        dash-to-panel.extensionUuid
+        emoji-copy.extensionUuid
+      ];
+    };
+  };
 }
