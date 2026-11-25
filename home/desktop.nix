@@ -33,6 +33,7 @@
     gnome-tweaks
     godot
     htop
+    iconic
     inkscape
     postman
     qbittorrent
