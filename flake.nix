@@ -2,23 +2,20 @@
   description = "My NixOS Flake";
 
   inputs = {
-    nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=nixos-25.11";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager } @ inputs: {
-    nixosConfigurations = let
-      defaults = {
-        system = "x86_64-linux";
-        user = "jerry";
-      };
-    in {
-      vbox = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager } @ inputs:
+    let
+      defaults.system = "x86_64-linux";
+      defaults.user = "jerry";
+    in
+    {
+      nixosConfigurations.vbox = nixpkgs.lib.nixosSystem {
         system = defaults.system;
         # Passes values to all modules
         specialArgs = {
@@ -67,5 +64,4 @@
       # };
 
     };
-  };
 }

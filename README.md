@@ -4,6 +4,10 @@ Home manager manages its own modules separate from NixOS. So properties and argu
 
 ## Customizations
 
+### Assets
+
+Assets are also located in the Nix store. Find icons with `ls /nix/store | grep icon`
+
 ### GNOME
 
 GNOME and GNOME Extensions uses `dconf` for settings. To see options being set, run `dconf watch /org/gnome/shell/`
